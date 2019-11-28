@@ -1,0 +1,30 @@
+#配置服务及端口
+server:
+  port: 7777
+spring:
+  main:
+    allow-bean-definition-overriding: false #zipkin启动报错 解决The bean 'characterEncodingFilter', defined in class path resource [zipkin/autoconfigure/ui/ZipkinUiAutoConfiguration.class], could not be registered. A bean with that name has already been defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/HttpEncodingAutoConfiguration.class] and overriding is disabled.Action:
+  application:
+    name: server-zipkin
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zipkin?characterEncoding=utf8&useSSL=true&verifyServerCertificate=false
+    username: root
+    password: 123456
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false #zipkin启动报错 解决,Prometheus requires that all meters with the same name have the same set of tag keys. There is already an existing meter named 'http_server_requests_seconds' containing tag keys [exception, method, outcome, status, uri]. The meter you are attempting to register has keys [method, status, uri].
+zipkin:
+  collector:
+    rabbitmq:
+      addresses: 192.168.41.16:5672
+      password: guest
+      username: guest
+      virtual-host: /
+      queue: zipkin
+  storage:
+    type: mysql
+
+
