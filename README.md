@@ -2,11 +2,11 @@
 
 ## Spring Cloud Sleuth Zipkin + RabbitMQ + MySQL Demo
 
-## 1.简介
+## 1. 简介
 
 Spring Cloud Sleuth为[Spring Cloud](https://cloud.spring.io/)实现了分布式跟踪解决方案。
 
-### 1.1基本术语
+### 1.1 基本术语
 
 Spring Cloud Sleuth借鉴了[Dapper的](https://research.google.com/pubs/pub36356.html)术语。
 
@@ -46,13 +46,13 @@ Client Sent
 
 Zipkin 和 Config 结构类似，分为服务端 Server，客户端 Client，客户端就是各个微服务应用。
 
-### 搭建 Zipkin 服务端
+## 2. 搭建 Zipkin 服务端
 
 在 Spring Boot 2.0 版本之后，官方已不推荐自己搭建定制了，而是直接提供了编译好的 jar 包。详情可以查看官网：https://zipkin.io/pages/quickstart.html
 
 本文介绍的还是自己搭建zipkin-server,原因本人项目上是使用的spring cloud 体系，想结合eureka注册中心统一展示管理
 
-#### 创建 zipkin-server
+### 2.1 创建 zipkin-server
 
 引入依赖。pom文件：
 
@@ -155,7 +155,7 @@ Zipkin 和 Config 结构类似，分为服务端 Server，客户端 Client，客
 </project>
 ```
 
-#### 配置文件：
+### 2.2 配置文件：
 
 ```yaml
 #配置服务及端口
@@ -188,7 +188,7 @@ zipkin:
     type: mysql
 ```
 
-#### 启动类：
+### 2.3 启动类：
 
 ```java
 @EnableZipkinServer
@@ -211,13 +211,13 @@ public class ServerZipkinApplication {
 
 ![image-20191130114416161](https://tva1.sinaimg.cn/large/006tNbRwgy1g9fx3lpa7gj327q0r0gpx.jpg)
 
-### 搭建 Zipkin 客户端
+## 3 搭建 Zipkin 客户端
 
 创建两个服务，service-hello、service-hi，service-hello 实现一个 REST 接口 /hello，/hello/hi，该接口里调用/helloe/hi调用 service-hi 应用的接口。
 
-#### 创建 service-hello
+### 3.1 创建 service-hello
 
-##### 引入依赖，pom 文件：
+### 3.2 引入依赖，pom 文件：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -281,7 +281,7 @@ public class ServerZipkinApplication {
 </project>
 ```
 
-##### 配置文件：
+### 3.3 配置文件：
 
 ```yaml
 server:
@@ -303,7 +303,7 @@ spring:
       probability: 1.0 #Sleuth 默认采样算法的实现是 Reservoir sampling，具体的实现类是 PercentageBasedSampler，默认的采样比例为: 0.1，即 10%。我们可以通过 spring.sleuth.sampler.probability 来设置，所设置的值介于 0 到 1 之间，1 则表示全部采集
 ```
 
-##### 启动类
+### 3.4 启动类
 
 ```java
 @SpringBootApplication
@@ -345,9 +345,9 @@ public class ServiceHelloApplication {
 }
 ```
 
-#### 创建 service-hi
+## 4. 创建 service-hi
 
-##### service2 的 pom.xml 文件:
+### 4.1 service-hi 的 pom.xml 文件:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -411,7 +411,7 @@ public class ServiceHelloApplication {
 </project>
 ```
 
-##### 配置文件如下：
+### 4.2 配置文件如下：
 
 ```yaml
 server:
@@ -423,7 +423,7 @@ spring:
     base-url: http://localhost:9411/
 ```
 
-##### 启动类如下：
+### 4.3 启动类如下：
 
 ```java
 @SpringBootApplication
@@ -459,7 +459,7 @@ public class ServiceHiApplication {
 }
 ```
 
-#### 验证
+## 5. 验证
 
 依次启动 zipkin-server、service-hello、service-hi，
 
@@ -470,6 +470,8 @@ public class ServiceHiApplication {
 访问 http://localhost:8482/hi/hello
 
 ![image-20191130115721865](https://tva1.sinaimg.cn/large/006tNbRwgy1g9fxh6xjicj31380e6dhr.jpg)
+
+## 6. 特性
 
 接口访问已经成功，此时，我们查看一下控制台的日志输出：
 
@@ -515,13 +517,13 @@ SQL语句参见：https://github.com/openzipkin/zipkin/blob/master/zipkin-storag
 
 
 
-### demo源码地址：
+## 7. demo源码地址：
 
 https://github.com/yanzhaoyao/spring-cloud-sleuth-zipkin-demo
 
 具体的参考资料如下，推荐看spring cloud 官网的文档，下面第一个
 
-## 参考资料：
+## 8. 参考资料：
 
 https://cloud.spring.io/spring-cloud-sleuth/reference/html[推荐]
 
