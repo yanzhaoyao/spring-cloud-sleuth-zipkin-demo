@@ -207,6 +207,10 @@ public class ServerZipkinApplication {
 }
 ```
 
+这里注入一个DataSource，需要在数据库建几张表
+
+SQL语句参见：https://github.com/openzipkin/zipkin/blob/master/zipkin-storage/mysql-v1/src/main/resources/mysql.sql
+
 任一方式启动后，访问 http://localhost:9411，可以看到服务端已经搭建成功
 
 ![image-20191130114416161](https://tva1.sinaimg.cn/large/006tNbRwgy1g9fx3lpa7gj327q0r0gpx.jpg)
@@ -522,10 +526,6 @@ Sleuth 默认采样算法的实现是 Reservoir sampling，具体的实现类是
 ![image-20191130120642086](https://tva1.sinaimg.cn/large/006tNbRwgy1g9fxqws7hvj327e0nw42c.jpg)
 
 ![image-20191130120653069](https://tva1.sinaimg.cn/large/006tNbRwgy1g9fxr3nsgej31qo0u010m.jpg)
-
-SQL语句参见：https://github.com/openzipkin/zipkin/blob/master/zipkin-storage/mysql-v1/src/main/resources/mysql.sql
-
-
 
 ## 7. demo源码地址：
 
