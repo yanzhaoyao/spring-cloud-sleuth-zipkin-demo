@@ -32,15 +32,14 @@ public class ServiceHiApplication {
     }
 
     @RequestMapping(value = "/hi", method = RequestMethod.GET)
-    public String callHome() {
-        LOG.log(Level.INFO, "calling trace service-hello  ");
-        return restTemplate.getForObject("http://localhost:7779/hello", String.class);
+    public String info() {
+        LOG.log(Level.INFO, "calling trace service-hi ");
+        return "i'm service-hi";
     }
 
-    @RequestMapping(value = "/aaa", method = RequestMethod.GET)
-    public String info() {
-        LOG.log(Level.INFO, "calling trace service-aaa ");
-        return "i'm service-aaa";
-
+    @RequestMapping(value = "/hi/hello", method = RequestMethod.GET)
+    public String callHome() {
+        LOG.log(Level.INFO, "calling trace service-hello  ");
+        return restTemplate.getForObject("http://localhost:8481/hello", String.class);
     }
 }

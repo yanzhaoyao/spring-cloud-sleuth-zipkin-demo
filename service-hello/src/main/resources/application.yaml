@@ -1,5 +1,5 @@
 server:
-  port: 7779
+  port: 8481
 spring:
   application:
     name: service-hello

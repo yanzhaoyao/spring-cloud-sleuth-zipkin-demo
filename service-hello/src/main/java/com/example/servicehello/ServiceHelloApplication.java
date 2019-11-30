@@ -25,14 +25,20 @@ public class ServiceHelloApplication {
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String home(){
-        LOG.log(Level.INFO, "hi is being called");
-        return "hi i'm service-bbb!";
+        LOG.log(Level.INFO, "hello is being called");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+
+        }
+        throw new RuntimeException("测试异常");
+//        return "hi i'm service-hello!";
     }
 
-    @RequestMapping(value = "/bbb", method = RequestMethod.GET)
+    @RequestMapping(value = "/hello/hi", method = RequestMethod.GET)
     public String info(){
-        LOG.log(Level.INFO, "info is being called");
-        return restTemplate.getForObject("http://localhost:7778/aaa",String.class);
+        LOG.log(Level.INFO, "hello/hi is being called");
+        return restTemplate.getForObject("http://localhost:8482/hi",String.class);
     }
 
     @Autowired
