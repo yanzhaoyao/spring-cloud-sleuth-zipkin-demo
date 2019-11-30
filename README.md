@@ -418,9 +418,19 @@ server:
   port: 8482
 spring:
   application:
-    name: service2
+    name: service-hi
+  rabbitmq:
+    host: 192.168.41.16
+    port: 5672
+    username: guest
+    password: guest
   zipkin:
-    base-url: http://localhost:9411/
+    rabbitmq:
+      queue: zipkin
+  sleuth:
+    sampler:
+      #采样率，推荐0.1，百分之百收集的话存储可能扛不住
+      probability: 1.0 #Sleuth 默认采样算法的实现是 Reservoir sampling，具体的实现类是 PercentageBasedSampler，默认的采样比例为: 0.1，即 10%。我们可以通过 spring.sleuth.sampler.probability 来设置，所设置的值介于 0 到 1 之间，1 则表示全部采集
 ```
 
 ### 4.3 启动类如下：
@@ -454,7 +464,7 @@ public class ServiceHiApplication {
     @RequestMapping(value = "/hi/hello", method = RequestMethod.GET)
     public String callHome() {
         LOG.log(Level.INFO, "calling trace service-hello  ");
-        return restTemplate.getForObject("http://localhost:8482/hello", String.class);
+        return restTemplate.getForObject("http://localhost:8481/hello", String.class);
     }
 }
 ```
