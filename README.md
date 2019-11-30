@@ -14,9 +14,9 @@ Spring Cloud Sleuth借鉴了[Dapper的](https://research.google.com/pubs/pub3635
 
  Spans在不断的启动和停止，同时记录了时间信息，当你创建了一个span，你必须在未来的某个时刻停止它。
 
-**Trace：**一系列spans组成的一个树状结构，例如，如果你正在跑一个分布式大数据工程，你可能需要创建一个trace。
+**Trace**：一系列spans组成的一个树状结构，例如，如果你正在跑一个分布式大数据工程，你可能需要创建一个trace。
 
-**Annotation:**用来及时记录一个事件的存在，一些核心annotations用来定义一个请求的开始和结束
+**Annotation**：用来及时记录一个事件的存在，一些核心annotations用来定义一个请求的开始和结束
 
 - `cs` - Client Sent -客户端发起一个请求，这个annotion描述了这个span的开始
 
